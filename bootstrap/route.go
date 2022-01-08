@@ -32,7 +32,8 @@ func registerGlobalMiddleware(router *gin.Engine) {
 	router.Use(
 		// gin.Logger(), // 使用以下自定义的 zap 日志包
 		middlewares.Logger(),
-		gin.Recovery(),
+		// gin.Recovery(), // 使用以下自定义 panic 回复中间件
+		middlewares.Recovery(),
 	)
 }
 
