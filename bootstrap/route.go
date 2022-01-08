@@ -2,6 +2,7 @@
 package bootstrap
 
 import (
+	"huango/app/http/middlewares"
 	"huango/routes"
 	"net/http"
 	"strings"
@@ -29,7 +30,8 @@ func SetupRoute(router *gin.Engine) {
 
 func registerGlobalMiddleware(router *gin.Engine) {
 	router.Use(
-		gin.Logger(),
+		// gin.Logger(), // 使用以下自定义的 zap 日志包
+		middlewares.Logger(),
 		gin.Recovery(),
 	)
 }
