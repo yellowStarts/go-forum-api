@@ -107,16 +107,16 @@ func getLogWriter(filename string, maxSize, maxBackup, maxAge int, compress bool
 
 // Dump 调试专用，不会中断程序，会在终端打印出 warning 消息。
 // 第一个参数会使用 json.Marshal 进行渲染，第二个参数消息（可选）
-//		logger.Dump(user.User{Name:"test"})
-//		logger.Dump(user.User{Name:"test"}, "用户消息")
+//         logger.Dump(user.User{Name:"test"})
+//         logger.Dump(user.User{Name:"test"}, "用户信息")
 func Dump(value interface{}, msg ...string) {
-	valueString := jsonString(value)
-	// 判单第二个参数是否传参 msg
-	if len(msg) > 0 {
-		Logger.Warn("Dump", zap.String(msg[0], valueString))
-	} else {
-		Logger.Warn("Dump", zap.String("data", valueString))
-	}
+    valueString := jsonString(value)
+    // 判断第二个参数是否传参 msg
+    if len(msg) > 0 {
+        Logger.Warn("Dump", zap.String(msg[0], valueString))
+    } else {
+        Logger.Warn("Dump", zap.String("data", valueString))
+    }
 }
 
 // LogIf 当 err != nil 时记录 error 等级的日志
@@ -214,9 +214,9 @@ func FatalJson(moduleName, name string, value interface{}) {
 }
 
 func jsonString(value interface{}) string {
-	b, err := json.Marshal(value)
-	if err != nil {
-		Logger.Error("Logger", zap.String("JSON marshal error ", err.Error()))
-	}
-	return string(b)
+    b, err := json.Marshal(value)
+    if err != nil {
+        Logger.Error("Logger", zap.String("JSON marshal error", err.Error()))
+    }
+    return string(b)
 }

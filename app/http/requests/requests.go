@@ -17,7 +17,6 @@ type ValidatorFunc func(interface{}, *gin.Context) map[string][]string
 //            return
 //        }
 func Validate(c *gin.Context, obj interface{}, handler ValidatorFunc) bool {
-
 	// 1. 解析请求，支持 JSON 数据、表单请求和 URL Query
 	if err := c.ShouldBind(obj); err != nil {
 		c.AbortWithStatusJSON(http.StatusUnprocessableEntity, gin.H{

@@ -31,11 +31,13 @@ func (sc *SignupController) IsPhoneExist(c *gin.Context) {
 
 // IsEmailExist 检测邮箱是否被注册
 func (sc *SignupController) IsEmailExist(c *gin.Context) {
+	// 获取请求参数，并做表单验证
 	request := requests.SignupEmailExistRequest{}
 	if ok := requests.Validate(c, &request, requests.SignupEmailExist); !ok {
 		return
 	}
 
+	//  检查数据库并返回响应
 	c.JSON(http.StatusOK, gin.H{
 		"exist": user.IsEmailExist(request.Email),
 	})
