@@ -6,6 +6,7 @@ import (
 	"huango/bootstrap"
 	btsconfig "huango/config"
 	"huango/pkg/config"
+	"huango/pkg/sms"
 
 	"github.com/gin-gonic/gin"
 )
