@@ -15,7 +15,7 @@ func init() {
 			"length": 6,
 
 			// 数字的最大倾斜角度
-			"maxskew": 0.7
+			"maxskew": 0.7,
 
 			// 图片背景里的混淆点数量
 			"dotcount": 80,
