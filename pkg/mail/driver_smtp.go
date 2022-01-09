@@ -13,7 +13,7 @@ type SMTP struct{}
 
 // Send 实现 email.Driver interface 的 Send 方法
 func (s *SMTP) Send(email Email, config map[string]string) bool {
-	
+
 	e := emailPKG.NewEmail()
 
 	e.From = fmt.Sprintf("%v <%v>", email.From.Name, email.From.Address)
@@ -24,7 +24,7 @@ func (s *SMTP) Send(email Email, config map[string]string) bool {
 	e.Text = email.Text
 	e.HTML = email.HTML
 
-	logger.DebugJson("发送邮件", "发送详情", e)
+	logger.DebugJson("发送邮件", "发件详情", e)
 
 	err := e.Send(
 		fmt.Sprintf("%v:%v", config["host"], config["port"]),

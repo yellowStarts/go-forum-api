@@ -1,4 +1,4 @@
-// Package mail 发送邮件
+// Package mail 发送短信
 package mail
 
 import (
@@ -17,8 +17,8 @@ type Email struct {
 	Bcc     []string
 	Cc      []string
 	Subject string
-	Text    []byte // 文本消息（可选）
-	HTML    []byte // HTML 消息（可选）
+	Text    []byte // 文本消息 (可选)
+	HTML    []byte // Html 消息 (可选)
 }
 
 type Mailer struct {
@@ -35,6 +35,7 @@ func NewMailer() *Mailer {
 			Driver: &SMTP{},
 		}
 	})
+
 	return internalMailer
 }
 
