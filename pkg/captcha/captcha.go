@@ -29,7 +29,7 @@ func NewCaptcha() *Capthca {
 		// 使用全局 Redis 对象，并配置存储 Key 的前缀
 		store := RedisStore{
 			RedisClient: redis.Redis,
-			KeyPrefix:   config.GetString("app.name") + ":captcha",
+			KeyPrefix:   config.GetString("app.name") + ":captcha:",
 		}
 
 		// 配置 base64Captcha 驱动信息
