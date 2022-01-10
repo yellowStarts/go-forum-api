@@ -22,6 +22,12 @@ func GetByPhone(phone string) (userModel User) {
 	return
 }
 
+// GetByEmail 通过邮箱来获取用户
+func GetByEmail(email string) (userModel User) {
+	database.DB.Where("email = ?", email).First(&userModel)
+	return
+}
+
 // GetByMulti 通过手机号/Email/用户名来获取用户
 func GetByMulti(loginID string) (userModel User) {
 	database.DB.
