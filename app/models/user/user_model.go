@@ -28,3 +28,4 @@ func (userModel *User) Create() {
 func (userModel *User) ComparePassword(_password string) bool {
 	return hash.BcryptCheck(_password, userModel.Password)
 }
+
