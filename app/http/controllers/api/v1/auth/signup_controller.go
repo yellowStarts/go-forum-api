@@ -5,6 +5,7 @@ import (
 	v1 "huango/app/http/controllers/api/v1"
 	"huango/app/http/requests"
 	"huango/app/models/user"
+	"huango/pkg/jwt"
 	"huango/pkg/response"
 
 	"github.com/gin-gonic/gin"
@@ -52,16 +53,18 @@ func (sc *SignupController) SignupUsingPhone(c *gin.Context) {
 	}
 
 	// 2. 验证成功，创建数据
-	_user := user.User{
+	userModel := user.User{
 		Name:     request.Name,
 		Phone:    request.Phone,
 		Password: request.Password,
 	}
-	_user.Create()
+	userModel.Create()
 
-	if _user.ID > 0 {
+	if userModel.ID > 0 {
+		token := jwt.NewJWT().IssudToken(userModel.GetStringID(), userModel.Name)
 		response.CreatedJSON(c, gin.H{
-			"data": _user,
+			"token": token,
+			"data":  userModel,
 		})
 	} else {
 		response.Abort500(c, "创建用户失败，请稍后尝试~")
@@ -78,16 +81,18 @@ func (sc *SignupController) SingupUsingEmail(c *gin.Context) {
 	}
 
 	// 2. 验证成功，创建数据
-	_user := user.User{
+	userModel := user.User{
 		Name:     request.Name,
 		Email:    request.Email,
 		Password: request.Password,
 	}
-	_user.Create()
+	userModel.Create()
 
-	if _user.ID > 0 {
+	if userModel.ID > 0 {
+		token := jwt.NewJWT().IssudToken(userModel.GetStringID(), userModel.Name)
 		response.CreatedJSON(c, gin.H{
-			"data": _user,
+			"token": token,
+			"data":  userModel,
 		})
 	} else {
 		response.Abort500(c, "创建用户失败，请稍后尝试~")
