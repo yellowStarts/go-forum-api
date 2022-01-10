@@ -68,3 +68,29 @@ func (sc *SignupController) SignupUsingPhone(c *gin.Context) {
 	}
 
 }
+
+// SingupUsingEmail 使用 Email 和验证码进行注册
+func (sc *SignupController) SingupUsingEmail(c *gin.Context) {
+	// 1. 验证表单
+	request := requests.SignupUsingEmailRequest{}
+	if ok := requests.Validate(c, &request, requests.SignupUsingEmail); !ok {
+		return
+	}
+
+	// 2. 验证成功，创建数据
+	_user := user.User{
+		Name:     request.Name,
+		Email:    request.Email,
+		Password: request.Password,
+	}
+	_user.Create()
+
+	if _user.ID > 0 {
+		response.CreatedJSON(c, gin.H{
+			"data": _user,
+		})
+	} else {
+		response.Abort500(c, "创建用户失败，请稍后尝试~")
+	}
+
+}
