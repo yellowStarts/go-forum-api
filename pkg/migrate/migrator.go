@@ -94,6 +94,27 @@ func (migrator *Migrator) Rollback() {
 	}
 }
 
+// Reset 回滚所有迁移
+func (migrator *Migrator) Reset() {
+	migrations := []Migration{}
+	// 按照倒序读取所有迁移文件
+	migrator.DB.Order("id DESC").Find(&migrations)
+
+	// 回滚所有迁移
+	if !migrator.rollbackMigrations(migrations) {
+		console.Success("[migrations] table is empty, nothing to reset.")
+	}
+}
+
+// Refresh 回滚所有迁移，并运行所有迁移
+func (migrator *Migrator) Refresh() {
+	// 回滚所有迁移
+	migrator.Reset()
+
+	// 再次执行所有迁移
+	migrator.Up()
+}
+
 // 回退迁移，按照倒序执行迁移的 down 方法
 func (migrator *Migrator) rollbackMigrations(migrations []Migration) bool {
 
@@ -183,3 +204,4 @@ func (migrator *Migrator) runUpMigration(mfile MigrationFile, batch int) {
 	err := migrator.DB.Create(&Migration{Migration: mfile.FileName, Batch: batch}).Error
 	console.ExitIf(err)
 }
+
