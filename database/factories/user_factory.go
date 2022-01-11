@@ -14,14 +14,14 @@ func MakeUser(times int) []user.User {
 	// 设置唯一值
 	faker.SetGenerateUniqueValues(true)
 
-	for 1 := 0; i< times; i++ {
+	for i := 0; i < times; i++ {
 		model := user.User{
-			Name: faker.Username(),
-			Email: faker.Email(),
-			Phone: helpers.RandomNumber(11),
+			Name:     faker.Username(),
+			Email:    faker.Email(),
+			Phone:    helpers.RandomNumber(11),
 			Password: "$2a$14$oPzVkIdwJ8KqY0erYAYQxOuAAlbI/sFIsH0C0R4MPc.3JbWWSuaUe",
 		}
-		pbjs = append(objs, model)
+		objs = append(objs, model)
 	}
 	return objs
 }
