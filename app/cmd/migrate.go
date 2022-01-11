@@ -1,14 +1,9 @@
 package cmd
 
 import (
-	"huango/bootstrap"
 	"huango/database/migrations"
-	"huango/pkg/config"
-	"huango/pkg/console"
-	"huango/pkg/logger"
 	"huango/pkg/migrate"
 
-	"github.com/gin-gonic/gin"
 	"github.com/spf13/cobra"
 )
 
@@ -19,9 +14,9 @@ var CmdMigrate = &cobra.Command{
 }
 
 var CmdMigrateUp = &cobra.Command{
-    Use:   "up",
-    Short: "Run unmigrated migrations",
-    Run:   runUp,
+	Use:   "up",
+	Short: "Run unmigrated migrations",
+	Run:   runUp,
 }
 
 func init() {

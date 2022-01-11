@@ -4,6 +4,7 @@ package migrate
 import (
 	"huango/pkg/console"
 	"huango/pkg/database"
+	"huango/pkg/file"
 	"io/ioutil"
 
 	"gorm.io/gorm"

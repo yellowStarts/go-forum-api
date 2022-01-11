@@ -1,4 +1,4 @@
-package v1
+package {{ApiVersion}}
 
 import (
     "huango/app/models/{{PackageName}}"
@@ -10,7 +10,7 @@ import (
 )
 
 type {{StructNamePlural}}Controller struct {
-    BaseAPIController
+    BaseController
 }
 
 func (ctrl *{{StructNamePlural}}Controller) Index(c *gin.Context) {
