@@ -115,6 +115,24 @@ func (migrator *Migrator) Refresh() {
 	migrator.Up()
 }
 
+// Fresh Drop 所有的表并重新运行所有迁移
+func (migrator *Migrator) Fresh() {
+	// 获取数据库名称，用以提示
+	dbname := database.CurrentDatabase()
+
+	// 删除所有表
+	err := database.DeleteAllTables()
+	console.ExitIf(err)
+	console.Success("clearup database " + dbname)
+
+	// 重现创建 migrations 表
+	migrator.createMigrationsTable()
+	console.Success("[migrations] table created.")
+
+	// 重新调用 up 命令
+	migrator.Up()
+}
+
 // 回退迁移，按照倒序执行迁移的 down 方法
 func (migrator *Migrator) rollbackMigrations(migrations []Migration) bool {
 
@@ -204,4 +222,3 @@ func (migrator *Migrator) runUpMigration(mfile MigrationFile, batch int) {
 	err := migrator.DB.Create(&Migration{Migration: mfile.FileName, Batch: batch}).Error
 	console.ExitIf(err)
 }
-
