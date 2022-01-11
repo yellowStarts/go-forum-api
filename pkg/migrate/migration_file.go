@@ -10,7 +10,7 @@ import (
 type migrationFunc func(gorm.Migrator, *sql.DB)
 
 // migrationFiles 所有的迁移文件数组
-var migtationFiles []MigrationFile
+var migrationFiles []MigrationFile
 
 // MigtationFile 代表着单个迁移文件
 type MigrationFile struct {
@@ -21,9 +21,29 @@ type MigrationFile struct {
 
 // Add 新增一个迁移文件，所有的迁移文件都需要调用此方法来注册
 func Add(name string, up migrationFunc, down migrationFunc) {
-	migtationFiles = append(migtationFiles, MigrationFile{
+	migrationFiles = append(migrationFiles, MigrationFile{
 		FileName: name,
 		Up:       up,
 		Down:     down,
 	})
+}
+
+// getMigrationFile 通过迁移文件的名称来获取到 MigrationFile 对象
+func getMigrationFile(name string) MigrationFile {
+	for _, mfile := range migrationFiles {
+		if name == mfile.FileName {
+			return mfile
+		}
+	}
+	return MigrationFile{}
+}
+
+// isNotMigrated 判断迁移是已执行
+func (mfile MigrationFile) isNotMigrated(migrations []Migration) bool {
+	for _, migration := range migrations {
+		if migration.Migration == mfile.FileName {
+			return false
+		}
+	}
+	return true
 }
