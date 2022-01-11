@@ -67,6 +67,11 @@ func RegisterAPIRoutes(r *gin.Engine) {
 		uc := new(controllers.UsersController)
 		// 获取当前用户
 		v1.GET("/user", middlewares.AuthJWT(), uc.CurrentUser)
+		// 用户路由分组
+		usersGroup := v1.Group("/users")
+		{
+			usersGroup.GET("", uc.Index)
+		}
 
 		// 测试路由
 		v1.GET("/ping", func(c *gin.Context) {
