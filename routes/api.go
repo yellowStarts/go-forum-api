@@ -2,6 +2,7 @@
 package routes
 
 import (
+	controllers "huango/app/http/controllers/api/v1"
 	"huango/app/http/controllers/api/v1/auth"
 	"huango/app/http/middlewares"
 	"net/http"
@@ -60,8 +61,12 @@ func RegisterAPIRoutes(r *gin.Engine) {
 			authGroup.POST("/verify-code/email", middlewares.LimitPerRoute("20-H"), vcc.SendUsingEmail)
 			// 图片验证码，需要加限流
 			authGroup.POST("/verify-code/captcha", middlewares.LimitPerRoute("20-H"), vcc.ShowCaptcha)
-
 		}
+
+		// ---- 用户接口 ----
+		uc := new(controllers.UsersController)
+		// 获取当前用户
+		v1.GET("/user", middlewares.AuthJWT(), uc.CurrentUser)
 
 		// 测试路由
 		v1.GET("/ping", func(c *gin.Context) {
