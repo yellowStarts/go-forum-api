@@ -15,18 +15,26 @@ type TopicsController struct {
 	BaseController
 }
 
-// func (ctrl *TopicsController) Index(c *gin.Context) {
-//     topics := topic.All()
-//     response.Data(c, topics)
-// }
+func (ctrl *TopicsController) Index(c *gin.Context) {
+	request := requests.PaginationRequest{}
+	if ok := requests.Validate(c, &request, requests.Pagination); !ok {
+		return
+	}
+
+	data, pager := topic.Paginate(c, 10)
+	response.JSON(c, gin.H{
+		"data":  data,
+		"pager": pager,
+	})
+}
 
 // func (ctrl *TopicsController) Show(c *gin.Context) {
-//     topicModel := topic.Get(c.Param("id"))
-//     if topicModel.ID == 0 {
-//         response.Abort404(c)
-//         return
-//     }
-//     response.Data(c, topicModel)
+// 	topicModel := topic.Get(c.Param("id"))
+// 	if topicModel.ID == 0 {
+// 		response.Abort404(c)
+// 		return
+// 	}
+// 	response.Data(c, topicModel)
 // }
 
 func (ctrl *TopicsController) Store(c *gin.Context) {
@@ -60,10 +68,10 @@ func (ctrl *TopicsController) Update(c *gin.Context) {
 		return
 	}
 
-    if ok := policies.CanModifyTopic(c, topicModel); !ok {
-        response.Abort403(c)
-        return
-    }
+	if ok := policies.CanModifyTopic(c, topicModel); !ok {
+		response.Abort403(c)
+		return
+	}
 
 	request := requests.TopicRequest{}
 	if ok := requests.Validate(c, &request, requests.TopicSave); !ok {
@@ -83,22 +91,22 @@ func (ctrl *TopicsController) Update(c *gin.Context) {
 
 func (ctrl *TopicsController) Delete(c *gin.Context) {
 
-    topicModel := topic.Get(c.Param("id"))
-    if topicModel.ID == 0 {
-        response.Abort404(c)
-        return
-    }
+	topicModel := topic.Get(c.Param("id"))
+	if topicModel.ID == 0 {
+		response.Abort404(c)
+		return
+	}
 
-    if ok := policies.CanModifyTopic(c, topicModel); !ok {
-        response.Abort403(c)
-        return
-    }
+	if ok := policies.CanModifyTopic(c, topicModel); !ok {
+		response.Abort403(c)
+		return
+	}
 
-    rowsAffected := topicModel.Delete()
-    if rowsAffected > 0 {
-        response.Success(c)
-        return
-    }
+	rowsAffected := topicModel.Delete()
+	if rowsAffected > 0 {
+		response.Success(c)
+		return
+	}
 
-    response.Abort500(c, "删除失败，请稍后尝试~")
+	response.Abort500(c, "删除失败，请稍后尝试~")
 }
