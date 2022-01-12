@@ -80,6 +80,8 @@ func RegisterAPIRoutes(r *gin.Engine) {
 			usersGroup.PUT("/phone", middlewares.AuthJWT(), uc.UpdatePhone)
 			// 更改密码
 			usersGroup.PUT("/password", middlewares.AuthJWT(), uc.UpdatePassword)
+			// 更改头像
+			usersGroup.PUT("/avatar", middlewares.AuthJWT(), uc.UpdateAvatar)
 		}
 
 		// ---- 分类接口 ----
