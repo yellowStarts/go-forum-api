@@ -88,6 +88,13 @@ func RegisterAPIRoutes(r *gin.Engine) {
 			cgcGroup.DELETE("/:id", middlewares.AuthJWT(), cgc.Delete)
 		}
 
+		// ---- 分类接口 ----
+		tpc := new(controllers.TopicsController)
+		tpcGroup := v1.Group("/topics")
+		{
+			tpcGroup.POST("", middlewares.AuthJWT(), tpc.Store)
+		}
+
 		// 测试路由
 		v1.GET("/ping", func(c *gin.Context) {
 			// 以 JSON 格式响应
