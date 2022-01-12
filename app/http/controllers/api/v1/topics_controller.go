@@ -3,6 +3,7 @@ package v1
 import (
 	"huango/app/http/requests"
 	"huango/app/models/topic"
+	"huango/app/policies"
 	"huango/pkg/auth"
 	"huango/pkg/logger"
 	"huango/pkg/response"
@@ -58,6 +59,11 @@ func (ctrl *TopicsController) Update(c *gin.Context) {
 		response.Abort404(c)
 		return
 	}
+
+    if ok := policies.CanModifyTopic(c, topicModel); !ok {
+        response.Abort403(c)
+        return
+    }
 
 	request := requests.TopicRequest{}
 	if ok := requests.Validate(c, &request, requests.TopicSave); !ok {
