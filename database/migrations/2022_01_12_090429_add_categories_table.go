@@ -14,8 +14,8 @@ func init() {
 		models.BaseModel
 
 		Name        string `gorm:"type:varchar(255);not null;index"`
-		Description string `gorm:"type:varchar(255);default ''"`
-		ParentID    uint64 `gorm:"column:parent_id;type:uint;default 0;index"`
+		Description string `gorm:"type:varchar(255);default:''"`
+		ParentID    uint64 `gorm:"column:parent_id;type:uint;default:0;index"`
 		Order       int    `gorm:"type:int(11)"`
 
 		models.CommonTimestampsFiels
