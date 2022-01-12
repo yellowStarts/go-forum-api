@@ -104,6 +104,13 @@ func RegisterAPIRoutes(r *gin.Engine) {
 			tpcGroup.GET("/:id", tpc.Show)
 		}
 
+		// ---- 友情链接 ----
+		lsc := new(controllers.LinksController)
+		linksGroup := v1.Group("/links")
+		{
+			linksGroup.GET("", lsc.Index)
+		}
+
 		// 测试路由
 		v1.GET("/ping", func(c *gin.Context) {
 			// 以 JSON 格式响应
