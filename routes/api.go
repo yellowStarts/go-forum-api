@@ -92,7 +92,10 @@ func RegisterAPIRoutes(r *gin.Engine) {
 		tpc := new(controllers.TopicsController)
 		tpcGroup := v1.Group("/topics")
 		{
+			// 新建话题
 			tpcGroup.POST("", middlewares.AuthJWT(), tpc.Store)
+			// 更新话题
+			tpcGroup.PUT("/:id", middlewares.AuthJWT(), tpc.Update)
 		}
 
 		// 测试路由
