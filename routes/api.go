@@ -72,6 +72,8 @@ func RegisterAPIRoutes(r *gin.Engine) {
 		{
 			// 用户列表
 			usersGroup.GET("", uc.Index)
+			// 更新用户资料
+			usersGroup.PUT("", middlewares.AuthJWT(), uc.UpdateProfile)
 		}
 
 		// ---- 分类接口 ----
