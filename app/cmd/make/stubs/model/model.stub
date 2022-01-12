@@ -2,7 +2,7 @@
 package {{PackageName}}
 
 import (
-
+	"huango/app/models"
     "huango/pkg/logger"
     "huango/pkg/database"
 )
@@ -13,7 +13,7 @@ type {{StructName}} struct {
     // Put fields in here
     FIXME()
 
-    models.CommonTimestampsField
+    models.CommonTimestampsFiels
 }
 
 func ({{VariableName}} *{{StructName}}) Create() {
