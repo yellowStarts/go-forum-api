@@ -64,11 +64,6 @@ func Paginate(c *gin.Context, db *gorm.DB, data interface{}, baseURL string, per
 	}
 	p.initProperties(perPage, baseURL)
 
-	// 数据不够分页
-	if p.TotalCount <= int64(p.PerPage) {
-		return Paging{}
-	}
-
 	// 查询数据库
 	err := p.query.Preload(clause.Associations). // 读取关联
 							Order(p.Sort + " " + p.Order). // 排序
@@ -80,6 +75,11 @@ func Paginate(c *gin.Context, db *gorm.DB, data interface{}, baseURL string, per
 	// 数据库出错
 	if err != nil {
 		logger.LogIf(err)
+		return Paging{}
+	}
+
+	// 数据不够分页
+	if p.TotalCount <= int64(p.PerPage) {
 		return Paging{}
 	}
 

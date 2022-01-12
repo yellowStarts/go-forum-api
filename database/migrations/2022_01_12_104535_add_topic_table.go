@@ -12,7 +12,6 @@ func init() {
 	type User struct {
 		models.BaseModel
 	}
-
 	type Category struct {
 		models.BaseModel
 	}
@@ -26,8 +25,8 @@ func init() {
 		CategoryID string `gorm:"type:bigint;not null;index"`
 
 		// 会创建 user_id 和 category_id 外键的约束
-        User     User
-        Category Category
+		User     User
+		Category Category
 
 		models.CommonTimestampsFiels
 	}
