@@ -3,7 +3,7 @@ package {{ApiVersion}}
 import (
     "huango/app/models/{{PackageName}}"
     "huango/app/policies"
-    "huango/app/requests"
+    "huango/app/http/requests"
     "huango/pkg/response"
 
     "github.com/gin-gonic/gin"
