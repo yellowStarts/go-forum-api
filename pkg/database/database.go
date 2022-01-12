@@ -53,6 +53,12 @@ func DeleteAllTables() error {
 	return err
 }
 
+func TableName(obj interface{}) string {
+	stmt := &gorm.Statement{DB: DB}
+	stmt.Parse(obj)
+	return stmt.Schema.Table
+}
+
 func deleteMysqlDatabase() error {
 	dbname := CurrentDatabase()
 	sql := fmt.Sprintf("DROP DATABASE %s;", dbname)
