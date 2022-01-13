@@ -35,6 +35,8 @@ func registerGlobalMiddleware(router *gin.Engine) {
 		// gin.Recovery(), // 使用以下自定义 panic 回复中间件
 		middlewares.Recovery(),
 		middlewares.ForceUA(),
+		// 跨域处理
+		// middlewares.Cors(),
 	)
 }
 
