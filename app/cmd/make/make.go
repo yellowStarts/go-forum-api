@@ -69,6 +69,7 @@ func init() {
 		CmdMakeCMD,
 		CmdMakeModel,
 		CmdMakeAPIController,
+		CmdMakeAdminController,
 		CmdMakeRequest,
 		CmdMakeMigration,
 		CmdMakeFactory,
